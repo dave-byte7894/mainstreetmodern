@@ -51,64 +51,38 @@
     }, 280);
   }
 
-  /* ---- PAGE TRANSITION: curtains / blinds ----
-     A qualifying click drops a row of ink blinds to cover the screen, then
-     navigates; the destination page lifts them away to reveal itself. Only
-     fires for real on-site page links that are NOT in the top bar / mobile
-     menu and NOT off-site or new-tab links. Everything else navigates natively. */
-  var curtain = $(".curtain");
-  var cPanels = curtain ? $$(".curtain__panel", curtain) : [];
-  var C_STAGGER = 0.055;                                  // seconds between blinds
-  var C_TOTAL = 500 + (cPanels.length - 1) * C_STAGGER * 1000 + 40; // ms until fully covered
-  cPanels.forEach(function (p, i) { p.style.setProperty("--d", (i * C_STAGGER).toFixed(3) + "s"); });
-
-  function isCurtainLink(a) {
-    if (!a || a.target === "_blank" || a.hasAttribute("download")) return false;
-    var href = a.getAttribute("href");
-    if (!href || href.charAt(0) === "#" || /^(https?:|mailto:|tel:)/i.test(href)) return false;
-    // never for the top bar or the mobile menu, and never for off-site links
-    if (a.closest && (a.closest(".site-header") || a.closest(".mobile-menu"))) return false;
-    return true;
-  }
-
-  var cArriving = false;
-  try { cArriving = sessionStorage.getItem("msm_curtain") === "1"; sessionStorage.removeItem("msm_curtain"); } catch (e) {}
-
-  if (curtain && !reduce) {
-    // arrival: start fully covered, then lift the blinds away to reveal the page
-    if (cArriving && !loader) {
-      curtain.classList.add("is-active", "covered");
-      requestAnimationFrame(function () {
-        void curtain.offsetWidth;                        // paint the covered state
-        requestAnimationFrame(function () {
-          curtain.classList.remove("covered");
-          curtain.classList.add("opening");
-          setReady();                                    // hero intro plays as the blinds lift
-          setTimeout(function () { curtain.classList.remove("is-active", "opening"); }, C_TOTAL + 140);
-        });
+  /* ---- PAGE-WIPE transitions between pages ---- */
+  var wipe = $(".page-wipe");
+  var arriving = false;
+  try { arriving = sessionStorage.getItem("msm_wipe") === "1"; sessionStorage.removeItem("msm_wipe"); } catch (e) {}
+  if (wipe && !reduce) {
+    if (arriving && !loader) {
+      // cover instantly, then slide away
+      wipe.classList.add("wipe-out");
+      wipe.addEventListener("animationend", function (e) {
+        if (e.target === wipe) { wipe.classList.remove("wipe-out"); setReady(); }
       });
     }
-    // leave: intercept qualifying on-site links, drop the blinds, then navigate
+    // leave: intercept same-origin page links
     document.addEventListener("click", function (e) {
       if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
       var a = e.target.closest && e.target.closest("a[href]");
-      if (!isCurtainLink(a)) return;
-      e.preventDefault();
+      if (!a || a.target === "_blank" || a.hasAttribute("download")) return;
       var href = a.getAttribute("href");
-      try { sessionStorage.setItem("msm_curtain", "1"); } catch (err) {}
+      if (!href || href.charAt(0) === "#" || /^(https?:|mailto:|tel:)/i.test(href)) return;
+      e.preventDefault();
+      try { sessionStorage.setItem("msm_wipe", "1"); } catch (err) {}
       document.body.style.overflow = "hidden";
-      curtain.classList.add("is-active");
-      void curtain.offsetWidth;                          // reflow so the transition runs
-      curtain.classList.add("closing");
-      setTimeout(function () { window.location.href = href; }, C_TOTAL);
+      wipe.classList.add("wipe-in");
+      setTimeout(function () { window.location.href = href; }, 480);
     });
     // restore if the page comes back from bfcache
     window.addEventListener("pageshow", function (e) {
-      if (e.persisted) { curtain.classList.remove("is-active", "closing", "opening", "covered"); document.body.style.overflow = ""; setReady(); }
+      if (e.persisted) { wipe.classList.remove("wipe-in"); document.body.style.overflow = ""; setReady(); }
     });
   }
-  // hero intro plays immediately unless we're mid-curtain-arrival (it fires as the blinds lift)
-  if (!loader && !(cArriving && curtain && !reduce)) { setReady(); }
+  // no loader and no arrival wipe → hero intro plays immediately
+  if (!loader && !(wipe && arriving && !reduce)) { setReady(); }
   // belt-and-braces: never leave the hero un-revealed
   setTimeout(setReady, 2600);
 
