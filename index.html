@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mainstreet Modern — Bold websites with hometown heart</title>
+  <meta name="description" content="Mainstreet Modern builds bold, beautiful, lightning-fast websites for local businesses. Real sites for real Main Street — book your project today." />
+  <meta name="theme-color" content="#24252b" />
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml" />
+  <meta property="og:title" content="Mainstreet Modern Web Design" />
+  <meta property="og:description" content="Bold websites with hometown heart — built for local business." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Rozha+One&display=swap" rel="stylesheet" />
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/site.css?v=31" />
+</head>
+<body>
+
+  <!-- duotone for the folk cutouts: shadows -> warm ink, mids -> marigold, highlights -> cream -->
+  <svg class="folk-defs" aria-hidden="true" focusable="false" width="0" height="0" style="position:absolute">
+    <filter id="folk-duotone" color-interpolation-filters="sRGB">
+      <feColorMatrix type="matrix" values="0.3 0.59 0.11 0 0  0.3 0.59 0.11 0 0  0.3 0.59 0.11 0 0  0 0 0 1 0"/>
+      <feComponentTransfer>
+        <feFuncR type="table" tableValues="0.086 0.36 0.839 0.992"/>
+        <feFuncG type="table" tableValues="0.063 0.227 0.541 0.925"/>
+        <feFuncB type="table" tableValues="0.043 0.118 0.165 0.796"/>
+      </feComponentTransfer>
+    </filter>
+  </svg>
+
+  <!-- LOADER -->
+  <div class="loader" role="status" aria-label="Loading">
+    <div class="loader__inner">
+      <svg class="loader__mark" viewBox="0 0 80 80" aria-hidden="true"><circle cx="40" cy="40" r="38" fill="none" stroke="#f5ae35" stroke-width="2" stroke-dasharray="6 8"/><path d="M24 54 V30 L40 42 L56 30 V54" fill="none" stroke="#f4ecd9" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/></svg>
+      <div class="loader__word">Warming up Main Street</div>
+      <div class="loader__bar"><span></span></div>
+      <div class="loader__pct">0%</div>
+    </div>
+  </div>
+
+  <!-- PAGE-WIPE TRANSITION -->
+  <div class="page-wipe" aria-hidden="true">
+    <svg viewBox="0 0 80 80"><circle cx="40" cy="40" r="38" fill="none" stroke="#f5ae35" stroke-width="2" stroke-dasharray="6 8"/><path d="M24 54 V30 L40 42 L56 30 V54" fill="none" stroke="#f4ecd9" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/></svg>
+  </div>
+
+  <!-- HEADER: hidden over the logo hero, slides in once you pass the first section -->
+  <header class="site-header site-header--home">
+    <div class="wrap site-header__inner">
+      <a href="index.html" class="brand" aria-label="Mainstreet Modern, home">
+        <span class="brand__mark" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="23" fill="#f5ae35"/><path d="M13 34 V17 L24 25 L35 17 V34" fill="none" stroke="#17181b" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/></svg></span>
+        <span class="brand__lines"><strong>Mainstreet Modern</strong><small>Web Design Co.</small></span>
+      </a>
+      <nav class="nav__links" aria-label="Primary">
+        <a href="index.html" aria-current="page">Home</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="nav__actions"><a href="contact.html" class="btn btn--honey" data-magnetic>Get started <span class="arrow">→</span></a></div>
+      <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobile-menu">
+    <nav aria-label="Mobile">
+      <a href="index.html">Home <span class="arrow">→</span></a>
+      <a href="pricing.html">Pricing <span class="arrow">→</span></a>
+      <a href="about.html">About <span class="arrow">→</span></a>
+      <a href="contact.html">Contact <span class="arrow">→</span></a>
+      <a href="contact.html">Start a project <span class="arrow">→</span></a>
+    </nav>
+  </div>
+
+  <main>
+    <!-- HERO: the shop sign swings in, the wordmark rises -->
+    <section class="hero-logo">
+      <div class="hero-logo__inner">
+        <svg class="hero-sign" viewBox="0 0 340 300" role="img" aria-label="Mainstreet Modern — a golden shop sign hanging from a wrought bracket">
+          <g class="sign-bracket">
+            <circle cx="18" cy="44" r="7" fill="#e2a339"/>
+            <path d="M18 44 H258 C284 44 296 32 296 20 C296 11 289 5 281 5 C274 5 269 10 269 16"
+                  fill="none" stroke="#e2a339" stroke-width="9" stroke-linecap="round"/>
+          </g>
+          <g class="sign-drop">
+            <g class="sign-swing">
+              <g fill="none" stroke="#e2a339" stroke-width="6">
+                <ellipse cx="84"  cy="58" rx="6" ry="9"/><ellipse cx="84"  cy="76" rx="6" ry="9"/><ellipse cx="84"  cy="94" rx="6" ry="9"/>
+                <ellipse cx="232" cy="58" rx="6" ry="9"/><ellipse cx="232" cy="76" rx="6" ry="9"/><ellipse cx="232" cy="94" rx="6" ry="9"/>
+              </g>
+              <rect x="36" y="100" width="244" height="148" rx="26" fill="#e2a339"/>
+              <rect x="43" y="107" width="230" height="134" rx="20" fill="none" stroke="#c9882a" stroke-width="2.5" opacity="0.6"/>
+              <text x="158" y="212" text-anchor="middle" font-family="'Rozha One', Georgia, serif" font-size="98" fill="#24252b">MM</text>
+            </g>
+          </g>
+        </svg>
+        <div class="hero-word">
+          <h1 class="logo-word" aria-label="Mainstreet Modern">
+            <span class="lmask" aria-hidden="true"><span class="l" style="--i:0">M</span></span><span class="lmask" aria-hidden="true"><span class="l" style="--i:1">A</span></span><span class="lmask" aria-hidden="true"><span class="l" style="--i:2">I</span></span><span class="lmask" aria-hidden="true"><span class="l" style="--i:3">N</span></span><span class="lmask" aria-hidden="true"><span class="l" style="--i:4">S</span></span><span class="lmask" aria-hidden="true"><span class="l" style="--i:5">T</span></span><span class="lmask" aria-hidden="true"><span class="l" style="--i:6">R</span></span><span class="lmask" aria-hidden="true"><span class="l" style="--i:7">E</span></span><span class="lmask" aria-hidden="true"><span class="l" style="--i:8">E</span></span><span class="lmask" aria-hidden="true"><span class="l" style="--i:9">T</span></span>
+            <span class="logo-modern" aria-hidden="true">Modern</span>
+          </h1>
+          <p class="logo-tag">Web Design Co. ✦ Est. 2026</p>
+        </div>
+      </div>
+      <span class="scroll-cue" aria-hidden="true">Scroll<span></span></span>
+    </section>
+
+    <!-- RISE STACK: walnut statement → marigold → cream; each panel rises up to cover the one before it -->
+    <div class="stack">
+
+      <!-- FOLK SHOWCASE (charcoal; scroll cycles the people, then the marigold panel rises over) -->
+      <section class="stack__panel stack__panel--brown folk" data-folk>
+        <div class="folk-inner wrap">
+
+          <!-- LEFT: the statement -->
+          <div class="folk-right">
+            <span class="label eyebrow">The folks of Main Street</span>
+            <h2 class="display display--up rise">Professional websites for small, local businesses</h2>
+            <p class="lede muted folk-sub">The bakers, barbers, and shop-owners who make a town — and the kind of sites that finally do them justice.</p>
+          </div>
+
+          <!-- RIGHT: the spotlighted person — real photo + a light duotone wash, bottom feathered -->
+          <div class="folk-left">
+            <div class="folk-figure">
+              <div class="folk-person is-active" data-person="0">
+                <img class="folk-img" src="assets/img/person-pizza.png" width="820" height="986" alt="A pizzaiolo tossing dough" loading="lazy" />
+                <img class="folk-img folk-img--duo" src="assets/img/person-pizza.png" alt="" aria-hidden="true" loading="lazy" />
+              </div>
+              <div class="folk-person" data-person="1">
+                <img class="folk-img" src="assets/img/person-florist.png" width="560" height="553" alt="A florist arranging a fresh bouquet" loading="lazy" />
+                <img class="folk-img folk-img--duo" src="assets/img/person-florist.png" alt="" aria-hidden="true" loading="lazy" />
+              </div>
+            </div>
+            <div class="folk-caption">
+              <div class="folk-cap is-active" data-person="0">
+                <span class="folk-trade">Marchetti's Pizzeria</span>
+                <span class="folk-name">Tony Marchetti <em>· 54</em></span>
+                <p class="folk-blurb">Third-generation pizzaiolo. Still tosses every crust by hand — now his website works just as hard as he does.</p>
+              </div>
+              <div class="folk-cap" data-person="1">
+                <span class="folk-trade">Bloom &amp; Stem</span>
+                <span class="folk-name">Marguerite Bloom <em>· 61</em></span>
+                <p class="folk-blurb">Hand-ties every bouquet before the shop lights come on. Her online storefront is just as fresh.</p>
+              </div>
+            </div>
+            <div class="folk-dots" aria-hidden="true"><span class="on"></span><span></span></div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- MARIGOLD (rises up to cover the statement) -->
+      <section class="stack__panel s-honey">
+        <div class="wrap statement">
+          <span class="label eyebrow" style="justify-content:center; display:inline-flex">Why Mainstreet Modern</span>
+          <h2 class="display display--up rise" style="margin-top:1.2rem">A custom website that turns clicks into customers</h2>
+          <p class="lede muted" style="margin-inline:auto">No cookie-cutter themes or drag-and-drop builders — just polished, custom websites built around your business.</p>
+          <div class="statement__row reveal">
+            <span class="emblem" aria-hidden="true">
+              <svg class="emblem__spin" viewBox="0 0 200 200">
+                <defs><path id="circle" d="M100,100 m-74,0 a74,74 0 1,1 148,0 a74,74 0 1,1 -148,0"/></defs>
+                <text font-family="Satoshi, sans-serif" font-weight="700" font-size="16.5" letter-spacing="3.4" fill="#17181b"><textPath href="#circle" startOffset="0">★ MAINSTREET MODERN ★ EST. 2026 </textPath></text>
+              </svg>
+              <span class="emblem__center"><svg viewBox="0 0 48 48"><path d="M13 34 V17 L24 25 L35 17 V34" fill="none" stroke="#17181b" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/></svg></span>
+            </span>
+            <a href="contact.html" class="btn btn--espresso btn--lg" data-magnetic>Get started <span class="arrow">→</span></a>
+          </div>
+        </div>
+      </section>
+
+      <!-- RECENT LOOKS (cream) -->
+      <section class="stack__panel s-cream stack__panel--work" id="work" data-carousel data-hscroll>
+        <div class="work-pin">
+        <div class="wrap">
+          <div class="carousel__head">
+            <div>
+              <span class="label eyebrow label--muted">Recent looks</span>
+              <h2 class="display display--up" style="margin-top:0.8rem; max-width:16ch">Designed for businesses like yours</h2>
+              <span class="work-hint" aria-hidden="true">Keep scrolling to browse <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            </div>
+            <div class="carousel__nav">
+              <button class="carousel-arrow" type="button" data-dir="-1" aria-label="Scroll to previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+              <button class="carousel-arrow" type="button" data-dir="1" aria-label="Scroll to next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
+            </div>
+          </div>
+        </div>
+        <div class="wrap">
+          <div class="carousel">
+            <article class="card-work">
+              <a class="card-work__art" href="https://wisecracks.vercel.app/index.html" target="_blank" rel="noopener" aria-label="Visit the WiseCracks Café live site"><img src="assets/img/work-wisecracks.png" alt="WiseCracks Café website front page" loading="lazy" /></a>
+              <div class="card-work__feel">Warm</div>
+              <h3>WiseCracks Café</h3>
+              <p>A small-town breakfast &amp; coffee spot — menu, story, and hours, beautifully online.</p>
+              <a href="https://wisecracks.vercel.app/index.html" target="_blank" rel="noopener" class="btn btn--outline">View live site <span class="arrow">↗</span></a>
+            </article>
+            <article class="card-work">
+              <a class="card-work__art" href="https://artgallery-gray.vercel.app/" target="_blank" rel="noopener" aria-label="Visit the STRATA Gallery live site"><img src="assets/img/work-artgallery.png" alt="STRATA contemporary art gallery website front page" loading="lazy" /></a>
+              <div class="card-work__feel">Bold</div>
+              <h3>STRATA Gallery</h3>
+              <p>A contemporary art gallery with type as loud as the work — kinetic, confident, impossible to forget.</p>
+              <a href="https://artgallery-gray.vercel.app/" target="_blank" rel="noopener" class="btn btn--outline">View live site <span class="arrow">↗</span></a>
+            </article>
+            <article class="card-work">
+              <a class="card-work__art" href="https://local-boyz-hawaiian-cafe.vercel.app/" target="_blank" rel="noopener" aria-label="Visit the Local Boyz Hawaiian live site"><img src="assets/img/work-localboyz.png?v=2" alt="Local Boyz Hawaiian Cafe website front page" loading="lazy" /></a>
+              <div class="card-work__feel">Island</div>
+              <h3>Local Boyz Hawaiian</h3>
+              <p>A Hawaiian plate-lunch favorite, with a bold, mouth-watering site to match.</p>
+              <a href="https://local-boyz-hawaiian-cafe.vercel.app/" target="_blank" rel="noopener" class="btn btn--outline">View live site <span class="arrow">↗</span></a>
+            </article>
+            <article class="card-work">
+              <a class="card-work__art" href="https://sundown-red.vercel.app/" target="_blank" rel="noopener" aria-label="Visit the Sundown live site"><img src="assets/img/work-sundown.png" alt="Sundown rooftop bar website front page" loading="lazy" /></a>
+              <div class="card-work__feel">Dusk</div>
+              <h3>Sundown</h3>
+              <p>A rooftop cocktail bar where the day comes to rest — an immersive, golden-hour site to match the view.</p>
+              <a href="https://sundown-red.vercel.app/" target="_blank" rel="noopener" class="btn btn--outline">View live site <span class="arrow">↗</span></a>
+            </article>
+          </div>
+          <div class="carousel-dots" aria-hidden="true"></div>
+          <div class="work-progress" aria-hidden="true"><span></span></div>
+        </div>
+        </div><!-- /.work-pin -->
+      </section>
+
+    </div><!-- /.stack -->
+
+    <!-- MANIFESTO: pinned, words ignite as you scroll -->
+    <section class="section s-ink arc-top" style="padding-block:0">
+      <div class="scrub-pin">
+        <div class="scrub-sticky">
+          <div class="wrap" style="display:grid; justify-items:center; text-align:center">
+            <span class="label eyebrow">Real sites, real results</span>
+            <p class="scrub" data-scrub style="margin-top:1.6rem">
+              From the baker up since 4am to the barber who knows <em>every name</em> — Main Street runs on people who <em>care</em>.
+              I build websites that finally do them <em>justice</em>, at a price a local shop can <em>actually afford</em>.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="wrap" style="padding-bottom:clamp(4.5rem,3rem+6vw,8rem)">
+        <div class="stats stats--rule" data-stagger="0.1">
+          <div class="stat reveal"><div class="num" style="color:var(--honey)"><span data-count="75">0</span><span class="suffix">%</span></div><div class="lbl muted">judge a business by its website</div></div>
+          <div class="stat reveal"><div class="num" style="color:var(--honey)"><span data-count="3">0</span><span class="suffix">s</span></div><div class="lbl muted">to lose a slow-loading visitor</div></div>
+          <div class="stat reveal"><div class="num" style="color:var(--honey)"><span data-count="2" data-decimals="1">0</span><span class="suffix">×</span></div><div class="lbl muted">more leads, built to convert</div></div>
+          <div class="stat reveal"><div class="num" style="color:var(--honey)"><span data-count="97">0</span><span class="suffix">%</span></div><div class="lbl muted">search online for local business</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MARQUEE -->
+    <div class="marquee marquee--honey marquee--pad" aria-hidden="true">
+      <div class="marquee__track">
+        <span>More calls</span><span>More bookings</span><span>More walk-ins</span><span>More <em>regulars</em></span>
+        <span>More calls</span><span>More bookings</span><span>More walk-ins</span><span>More <em>regulars</em></span>
+      </div>
+    </div>
+
+    <!-- SERVICES: the ledger -->
+    <section class="section s-parchment arc-top" id="services">
+      <div class="wrap">
+        <div class="section__head">
+          <span class="label eyebrow label--muted">What I do</span>
+          <h2 class="display display--up rise" style="margin-top:1rem">Everything your storefront needs online</h2>
+        </div>
+        <div class="svc-ledger" data-ledger>
+          <div class="svcrow" data-peek="0" tabindex="0">
+            <span class="svcrow__num">01</span>
+            <h3 class="svcrow__title">Custom design</h3>
+            <span class="svcrow__plus" aria-hidden="true">+</span>
+            <div class="svcrow__body"><div><p>A one-of-a-kind site built around your brand and your town — never a template you've seen on ten other businesses.</p></div></div>
+          </div>
+          <div class="svcrow" data-peek="1" tabindex="0">
+            <span class="svcrow__num">02</span>
+            <h3 class="svcrow__title">Built to convert</h3>
+            <span class="svcrow__plus" aria-hidden="true">+</span>
+            <div class="svcrow__body"><div><p>Fast load times and a layout engineered to turn visitors into calls, bookings, and customers through the door.</p></div></div>
+          </div>
+          <div class="svcrow" data-peek="2" tabindex="0">
+            <span class="svcrow__num">03</span>
+            <h3 class="svcrow__title">Found locally</h3>
+            <span class="svcrow__plus" aria-hidden="true">+</span>
+            <div class="svcrow__body"><div><p>Set up to be found by the people searching nearby — Google Business, local keywords, the groundwork that puts you on the map.</p></div></div>
+          </div>
+          <div class="svcrow" data-peek="3" tabindex="0">
+            <span class="svcrow__num">04</span>
+            <h3 class="svcrow__title">Care &amp; keeping</h3>
+            <span class="svcrow__plus" aria-hidden="true">+</span>
+            <div class="svcrow__body"><div><p>Hosting, updates, edits, and a real person to call. Your site stays fast and current without you lifting a finger.</p></div></div>
+          </div>
+        </div>
+      </div>
+      <!-- the peek card that chases the cursor -->
+      <div class="svc-peek" aria-hidden="true">
+        <div class="svc-peek__inner">
+        <div class="svc-peek__pane" data-pane="0">
+          <svg viewBox="0 0 250 180"><rect width="250" height="180" fill="#faf5e9"/><path d="M40 130 V70 L70 50 L100 70 V130 Z" fill="none" stroke="#26272d" stroke-width="5" stroke-linejoin="round"/><rect x="58" y="100" width="24" height="30" fill="#f5ae35"/><circle cx="170" cy="60" r="16" fill="#f5ae35"/><circle cx="205" cy="75" r="12" fill="#8a2e1d"/><circle cx="185" cy="105" r="14" fill="#6aacc2"/><path d="M140 140 l60 -60 l14 14 l-60 60 l-18 4z" fill="#26272d"/></svg>
+        </div>
+        <div class="svc-peek__pane" data-pane="1">
+          <svg viewBox="0 0 250 180"><rect width="250" height="180" fill="#f5ae35"/><path d="M40 140 L100 90 L140 110 L210 45" fill="none" stroke="#26272d" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><path d="M178 42 h36 v36" fill="none" stroke="#26272d" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="100" cy="90" r="7" fill="#faf5e9"/><circle cx="140" cy="110" r="7" fill="#faf5e9"/></svg>
+        </div>
+        <div class="svc-peek__pane" data-pane="2">
+          <svg viewBox="0 0 250 180"><rect width="250" height="180" fill="#26272d"/><path d="M30 60 H220 M30 100 H220 M30 140 H220 M70 30 V150 M130 30 V150 M190 30 V150" stroke="#f4ecd9" stroke-width="2" opacity="0.25"/><path d="M125 130 C100 100 100 70 125 70 C150 70 150 100 125 130Z" fill="#f5ae35"/><circle cx="125" cy="88" r="9" fill="#26272d"/></svg>
+        </div>
+        <div class="svc-peek__pane" data-pane="3">
+          <svg viewBox="0 0 250 180"><rect width="250" height="180" fill="#f4ecd9"/><circle cx="125" cy="90" r="52" fill="none" stroke="#26272d" stroke-width="6"/><path d="M125 62 V90 L145 104" fill="none" stroke="#8a2e1d" stroke-width="6" stroke-linecap="round"/><path d="M60 40 l8 8 M190 40 l-8 8" stroke="#f5ae35" stroke-width="6" stroke-linecap="round"/><path d="M125 20 v10 M125 150 v10" stroke="#f5ae35" stroke-width="6" stroke-linecap="round"/></svg>
+        </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROCESS: steps stack up like the site itself -->
+    <section class="section s-ink arc-top" id="process">
+      <div class="wrap">
+        <div class="section__head">
+          <span class="label eyebrow">How it works</span>
+          <h2 class="display display--up rise" style="margin-top:1rem; color:var(--cream)">Four steps to open</h2>
+        </div>
+        <div class="steps-stack" data-steps>
+          <article class="step-card step-card--cream">
+            <div class="step-card__num" aria-hidden="true">1</div>
+            <div>
+              <span class="step-card__eyebrow">Step one ✦ Free</span>
+              <h3>We talk</h3>
+              <p>A friendly, free conversation about your business and what you want your site to do. No pressure, no jargon — just a plan. You'll know exactly what you're getting and what it costs before anything begins.</p>
+            </div>
+          </article>
+          <article class="step-card step-card--honey">
+            <div class="step-card__num" aria-hidden="true">2</div>
+            <div>
+              <span class="step-card__eyebrow">Step two ✦ The fun part</span>
+              <h3>I design</h3>
+              <p>A custom look built around your brand, your town, and your customers. You see real designs early — not mood boards — and you shape them with me until it feels exactly like your shop.</p>
+            </div>
+          </article>
+          <article class="step-card step-card--parchment">
+            <div class="step-card__num" aria-hidden="true">3</div>
+            <div>
+              <span class="step-card__eyebrow">Step three ✦ The craft</span>
+              <h3>I build</h3>
+              <p>Hand-coded for speed and polish — no bloated builders. Tested on every screen size, tuned to load in a blink, and built to convert visitors into customers.</p>
+            </div>
+          </article>
+          <article class="step-card step-card--walnut">
+            <div class="step-card__num" aria-hidden="true">4</div>
+            <div>
+              <span class="step-card__eyebrow">Step four ✦ Grand opening</span>
+              <h3>We launch</h3>
+              <p>Your site goes live, gets found on Google, and starts working around the clock. And I stay on call to keep it fast, fresh, and running beautifully.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section s-honey arc-top">
+      <div class="wrap statement">
+        <h2 class="display display--up rise">Let's build something that lasts</h2>
+        <p class="lede muted" style="margin-inline:auto">Tell me about your business and I'll show you exactly what your site could become — free, no obligation, one neighbor to another.</p>
+        <div class="hero__actions" style="justify-content:center">
+          <a href="contact.html" class="btn btn--espresso btn--lg" data-magnetic>Start your project <span class="arrow">→</span></a>
+          <a href="pricing.html" class="btn btn--outline btn--lg" data-magnetic>See pricing</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer__top">
+        <div class="footer__brand">
+          <a href="index.html" class="brand" style="color:var(--cream)">
+            <span class="brand__mark" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="23" fill="#f5ae35"/><path d="M13 34 V17 L24 25 L35 17 V34" fill="none" stroke="#17181b" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/></svg></span>
+            <span class="brand__lines"><strong>Mainstreet Modern</strong><small>Web Design Co.</small></span>
+          </a>
+          <p>Bold websites with hometown heart — built for the local businesses that make a town worth living in.</p>
+          <div class="footer__social">
+            <a href="#" aria-label="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+            <a href="#" aria-label="Facebook"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M14 9h3V6h-3c-2 0-3 1-3 3v2H9v3h2v7h3v-7h2.5l.5-3H14V9z"/></svg></a>
+            <a href="mailto:daviskapela@gmail.com" aria-label="Email"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></a>
+          </div>
+        </div>
+        <div class="footer__col"><h4>Explore</h4><a href="index.html">Home</a><a href="pricing.html">Pricing</a><a href="about.html">About</a><a href="contact.html">Contact</a></div>
+        <div class="footer__col"><h4>Services</h4><a href="contact.html">Custom design</a><a href="contact.html">Local SEO</a><a href="contact.html">Care &amp; hosting</a><a href="pricing.html">Pricing plans</a></div>
+        <div class="footer__col"><h4>Get in touch</h4><a href="mailto:daviskapela@gmail.com">daviskapela@gmail.com</a><a href="contact.html">Book a free chat</a></div>
+      </div>
+      <div class="footer__wordmark" aria-hidden="true">Mainstreet Modern</div>
+      <div class="footer__bottom">
+        <span>© <span data-year>2026</span> Mainstreet Modern Web Design</span>
+        <span>Built with care on Main Street ★</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/site.js?v=31" defer></script>
+</body>
+</html>

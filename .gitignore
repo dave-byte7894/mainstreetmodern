@@ -1,0 +1,19 @@
+# OS / editor junk
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Tooling / local config
+.claude/
+node_modules/
+
+# Loose working & reference images in the project root (not used by the live site;
+# the site serves everything from assets/). Kept on disk, out of the repo.
+/cntrl.jpg
+/garriock.jpg
+/logo mainstreet modern.jpg
+/pizza man.png
+/florist.png
+/option 1.jpg
+/option 2.jpg
+/option 3.jpg
