@@ -328,29 +328,34 @@ h3.display { font-size: clamp(1.6rem, 1.1rem + 2vw, 2.6rem); }
   will-change: transform, opacity;
 }
 
-/* the hanging sign (SVG) — bracket slides in, sign drops, then swings to rest */
+/* the hanging sign (SVG) — the sign and its bracket drop in together, and as
+   they land the sign swings gently FRONT-TO-BACK on the bracket (rotateX +
+   perspective), not side to side */
 .hero-sign { width: clamp(180px, 24vw, 320px); flex: none; overflow: visible; }
 .hero-sign * { transform-box: fill-box; }
-.sign-bracket { opacity: 0; transform: translateX(-36px); }
-.sign-drop { transform: translateY(-130%); }
-.sign-swing { transform-origin: 50% -12%; }
-.is-ready .sign-bracket { animation: bracketIn 0.7s var(--ease) 0.1s forwards; }
-.is-ready .sign-drop { animation: signDrop 0.95s cubic-bezier(0.3, 1.25, 0.4, 1) 0.5s forwards; }
-.is-ready .sign-swing { animation: signSwing 3.4s var(--ease-soft) 1.15s both; }
-@keyframes bracketIn { to { opacity: 1; transform: translateX(0); } }
-@keyframes signDrop { to { transform: translateY(0); } }
+.sign-drop { transform: translateY(-150%); opacity: 0; }
+.sign-swing { transform-origin: 50% -2%; }
+.is-ready .sign-drop { animation: signDrop 0.9s cubic-bezier(0.3, 1.15, 0.42, 1) 0.15s forwards; }
+.is-ready .sign-swing { animation: signSwing 3.6s var(--ease-soft) 0.75s both; }
+@keyframes signDrop {
+  0%   { transform: translateY(-150%); opacity: 0; }
+  35%  { opacity: 1; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+/* front-to-back pendulum: the sign tilts toward then away from the viewer,
+   decaying to rest. perspective sells the depth */
 @keyframes signSwing {
-  0%   { transform: rotate(-7deg); }
-  22%  { transform: rotate(5deg); }
-  44%  { transform: rotate(-3deg); }
-  66%  { transform: rotate(1.6deg); }
-  84%  { transform: rotate(-0.7deg); }
-  100% { transform: rotate(0deg); }
+  0%   { transform: perspective(620px) rotateX(-18deg); }
+  20%  { transform: perspective(620px) rotateX(13deg); }
+  40%  { transform: perspective(620px) rotateX(-8deg); }
+  60%  { transform: perspective(620px) rotateX(4.5deg); }
+  80%  { transform: perspective(620px) rotateX(-2deg); }
+  100% { transform: perspective(620px) rotateX(0deg); }
 }
 /* give it a friendly push on hover */
-.is-ready .hero-sign:hover .sign-swing { animation: signSwing 3.4s var(--ease-soft) both; }
+.is-ready .hero-sign:hover .sign-swing { animation: signSwing 3.6s var(--ease-soft) both; }
 
-/* the wordmark — letters rise from a mask, then MODERN tracks in */
+/* the wordmark — letters rise from a mask, then MODERN tracks in (original, unchanged) */
 .hero-word { text-align: left; }
 .logo-word {
   font-family: var(--display); color: var(--cream);
@@ -883,7 +888,7 @@ h3.display { font-size: clamp(1.6rem, 1.1rem + 2vw, 2.6rem); }
   .hero-statement__cta { opacity: 1 !important; transform: none !important; }
   .marquee__track { animation: none; }
   .loader { display: none; }
-  .sign-bracket, .sign-drop, .logo-word .l, .logo-modern, .logo-tag, .hero-logo .scroll-cue { opacity: 1 !important; transform: none !important; animation: none !important; }
+  .sign-drop, .sign-swing, .logo-word .l, .logo-modern, .logo-tag, .hero-logo .scroll-cue { opacity: 1 !important; transform: none !important; animation: none !important; }
   .scrub .sw { opacity: 1 !important; }
   .scrub-pin { height: auto; padding-block: clamp(4rem, 8vw, 8rem); }
   .scrub-sticky { position: static; min-height: 0; }
