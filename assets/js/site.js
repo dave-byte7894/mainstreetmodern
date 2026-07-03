@@ -86,6 +86,23 @@
   // belt-and-braces: never leave the hero un-revealed
   setTimeout(setReady, 2600);
 
+  /* ---- enable the hover "push" on the shop sign ONLY after its intro swing has
+     settled, so hovering during the drop-in can't restart/glitch the entrance ---- */
+  var heroSign = $(".hero-sign");
+  var signSwingEl = $(".sign-swing");
+  if (heroSign && signSwingEl) {
+    var enableSignHover = function () { heroSign.classList.add("swing-ready"); };
+    if (reduce) {
+      enableSignHover();
+    } else {
+      signSwingEl.addEventListener("animationend", function (e) {
+        if (e.animationName === "signSwing") enableSignHover();
+      });
+      // fallback: intro swing is delay(0.75s) + duration(3.6s); enable a bit after
+      setTimeout(enableSignHover, 4600);
+    }
+  }
+
   /* ---- sticky header + scroll cue + homepage nav reveal ---- */
   var header = $(".site-header");
   var cue = $(".scroll-cue");

@@ -352,8 +352,10 @@ h3.display { font-size: clamp(1.6rem, 1.1rem + 2vw, 2.6rem); }
   80%  { transform: perspective(620px) rotateX(-2.5deg); }
   100% { transform: perspective(620px) rotateX(0deg); }
 }
-/* give it a friendly push on hover */
-.is-ready .hero-sign:hover .sign-swing { animation: signSwing 3.6s var(--ease-soft) both; }
+/* give it a friendly push on hover — but ONLY once the intro swing has settled,
+   so hovering during the drop-in can't restart/glitch the entrance animation
+   (JS adds .swing-ready to .hero-sign when the intro finishes) */
+.hero-sign.swing-ready:hover .sign-swing { animation: signSwing 3.6s var(--ease-soft) both; }
 
 /* the wordmark — letters rise from a mask, then MODERN tracks in (original, unchanged) */
 .hero-word { text-align: left; }
