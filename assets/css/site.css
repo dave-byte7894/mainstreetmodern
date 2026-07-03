@@ -576,9 +576,7 @@ h3.display { font-size: clamp(1.6rem, 1.1rem + 2vw, 2.6rem); }
 .card-work:hover .card-work__art { transform: translateY(-8px) rotate(-0.6deg); box-shadow: var(--shadow-lg); }
 .card-work__art svg { width: 100%; height: 100%; }
 .card-work__art img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.card-work__feel { font-family: var(--display); font-size: 1.5rem; margin: 1.1rem 0 0.1rem; }
-.card-work__feel::after { content: " ✦"; color: var(--honey-deep); font-size: 0.7em; }
-.card-work h3 { font-family: var(--body); font-weight: 700; font-size: 1.05rem; letter-spacing: 0.02em; text-transform: uppercase; }
+.card-work h3 { font-family: var(--body); font-weight: 700; font-size: 1.05rem; letter-spacing: 0.02em; text-transform: uppercase; margin-top: 1.1rem; }
 .card-work p { color: var(--muted); font-size: 0.92rem; margin: 0.4rem 0 1rem; }
 .carousel-dots { display: flex; gap: 0.5rem; justify-content: center; margin-top: 2rem; }
 .carousel-dots button { width: 9px; height: 9px; border-radius: 50%; background: currentColor; opacity: 0.28; transition: opacity 0.3s, transform 0.3s; }
