@@ -17,3 +17,6 @@ node_modules/
 /option 1.jpg
 /option 2.jpg
 /option 3.jpg
+
+# stray intermediate capture
+/assets/img/splat-raw.png
