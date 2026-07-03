@@ -108,7 +108,9 @@
   var cue = $(".scroll-cue");
   var homeHeader = $(".site-header--home");
   var heroLogo = $(".hero-logo");
-  var revealPoint = function () { return heroLogo ? heroLogo.offsetHeight - 90 : 500; };
+  // reveal the nav exactly when the hero logo has fully faded out (see hero
+  // parallax below — the logo reaches opacity 0 at 0.8 of a viewport of scroll)
+  var revealPoint = function () { return heroLogo ? window.innerHeight * 0.8 : 500; };
   var onScroll = function () {
     if (header) header.classList.toggle("is-scrolled", window.scrollY > 24);
     if (cue) cue.classList.toggle("is-hidden", window.scrollY > 20);
@@ -127,9 +129,10 @@
       var y = window.scrollY;
       var vh = window.innerHeight;
       if (y < vh * 1.2) {
-        var pr = clamp(y / vh, 0, 1);
+        // fade the logo out a bit sooner (fully gone by ~0.8 of a viewport of scroll)
+        var pr = clamp(y / (vh * 0.8), 0, 1);
         heroInner.style.transform = "translateY(" + (y * 0.34).toFixed(1) + "px) scale(" + (1 - pr * 0.06).toFixed(4) + ")";
-        heroInner.style.opacity = String(1 - pr * 0.75);
+        heroInner.style.opacity = String(1 - pr);
       }
     };
     window.addEventListener("scroll", function () {
@@ -419,9 +422,13 @@
       if (!peekRaf) { px = tx; py = ty; peekRaf = requestAnimationFrame(peekLoop); }
     });
     $$(".svcrow", ledger).forEach(function (row) {
-      row.addEventListener("pointerenter", function () {
+      row.addEventListener("pointerenter", function (e) {
         var i = parseInt(row.getAttribute("data-peek"), 10) || 0;
         panes.forEach(function (p, j) { p.classList.toggle("on", j === i); });
+        // seed the position at the cursor so it doesn't flash in at the top-left
+        // when a row scrolls under a stationary pointer (enter without a prior move)
+        tx = e.clientX + 40; ty = e.clientY;
+        if (!peekRaf) { px = tx; py = ty; peekRaf = requestAnimationFrame(peekLoop); }
         peekOn = true;
         peek.classList.add("show");
       });

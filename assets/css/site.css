@@ -314,12 +314,11 @@ h3.display { font-size: clamp(1.6rem, 1.1rem + 2vw, 2.6rem); }
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   text-align: center; padding: 6rem var(--gutter) 4rem; overflow: hidden;
 }
-/* warm gold spotlight from above, cool shadow pooling below */
+/* warm gold spotlight from above (no dark pool at the bottom, so the hero
+   blends seamlessly into the walnut section below) */
 .hero-logo::before {
   content: ""; position: absolute; inset: 0; pointer-events: none;
-  background:
-    radial-gradient(90% 70% at 50% -10%, rgba(245, 174, 53, 0.16), transparent 60%),
-    radial-gradient(60% 45% at 50% 108%, rgba(0, 0, 0, 0.5), transparent 70%);
+  background: radial-gradient(90% 70% at 50% -10%, rgba(245, 174, 53, 0.16), transparent 60%);
 }
 .hero-logo__inner {
   position: relative; z-index: 2;
@@ -706,7 +705,7 @@ h3.display { font-size: clamp(1.6rem, 1.1rem + 2vw, 2.6rem); }
 .footer__social a { width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center; background: var(--honey); color: var(--ink); transition: transform 0.3s var(--ease), background-color 0.3s; }
 .footer__social a:hover { transform: translateY(-3px) rotate(-6deg); background: var(--cream); }
 .footer__wordmark {
-  font-family: var(--display); font-size: clamp(1.9rem, 8.2vw, 8.2rem); line-height: 0.82;
+  font-family: var(--display); font-size: clamp(1.9rem, 8.2vw, 7rem); line-height: 0.82;
   text-transform: uppercase; text-align: center; letter-spacing: -0.01em; white-space: nowrap;
   overflow: hidden; -webkit-user-select: none; user-select: none; padding-top: 1rem;
   color: var(--honey);
