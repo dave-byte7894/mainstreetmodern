@@ -480,9 +480,11 @@ h3.display { font-size: clamp(1.6rem, 1.1rem + 2vw, 2.6rem); }
 }
 .folk-img--duo { filter: url(#folk-duotone); opacity: 0.1; }
 
-/* caption under the figure (crossfades with the person) */
-.folk-caption { position: relative; width: min(460px, 82vw); margin-top: 1.8rem; min-height: 6.5rem; }
-.folk-cap { position: absolute; inset: 0; opacity: 0; transform: translateY(10px); transition: opacity 0.6s var(--ease), transform 0.6s var(--ease); text-align: center; }
+/* caption under the figure (crossfades with the person). The captions are stacked
+   in one grid cell so the box grows to the TALLEST caption — the dots always sit
+   below the text and never clip it, whatever the blurb length. */
+.folk-caption { width: min(460px, 82vw); margin-top: 1.8rem; display: grid; }
+.folk-cap { grid-area: 1 / 1; opacity: 0; transform: translateY(10px); transition: opacity 0.6s var(--ease), transform 0.6s var(--ease); text-align: center; }
 .folk-cap.is-active { opacity: 1; transform: none; }
 .folk-trade { display: block; font-family: var(--body); font-weight: 700; font-size: 0.68rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--honey); }
 .folk-name { display: block; font-family: var(--display); font-size: clamp(1.5rem, 1.2rem + 1vw, 2.1rem); color: var(--cream); margin-top: 0.5rem; }
