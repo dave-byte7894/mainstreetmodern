@@ -68,6 +68,7 @@
       if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
       var a = e.target.closest && e.target.closest("a[href]");
       if (!a || a.target === "_blank" || a.hasAttribute("download")) return;
+      if (a.hasAttribute("data-blinds")) return;   // handled by the blinds transition instead
       var href = a.getAttribute("href");
       if (!href || href.charAt(0) === "#" || /^(https?:|mailto:|tel:)/i.test(href)) return;
       e.preventDefault();
@@ -85,6 +86,68 @@
   if (!loader && !(wipe && arriving && !reduce)) { setReady(); }
   // belt-and-braces: never leave the hero un-revealed
   setTimeout(setReady, 2600);
+
+  /* ---- BLINDS transition (TEST: only the Why-Mainstreet "Get started" CTA) ----
+     Marigold slats sweep down to cover the screen, the page navigates under cover,
+     then they retract on arrival. Uses its own sessionStorage handshake (msm_blinds)
+     so it doesn't tangle with the logo page-wipe, which is told to skip data-blinds
+     links above. Reduced-motion just navigates. To extend later: add data-blinds to
+     any internal link and drop a .blinds container on its destination page. */
+  (function () {
+    var blinds = $(".blinds");
+    if (!blinds) return;
+    var slats = $$("span", blinds);
+    if (!slats.length) return;
+    var DUR = 0.65, STAGGER = 0.06, EASE = "cubic-bezier(0.85,0,0.15,1)";
+    var coverMs = (slats.length - 1) * STAGGER * 1000 + DUR * 1000 + 40;  // last slat settled
+
+    function cascade(origin, to, done) {
+      slats.forEach(function (s) { s.style.transition = "none"; s.style.transformOrigin = origin; s.style.transform = "scaleY(" + (to ? 0 : 1) + ")"; });
+      void blinds.offsetWidth;  // lock the reset before animating
+      slats.forEach(function (s, i) {
+        s.style.transition = "transform " + DUR + "s " + EASE + " " + (i * STAGGER) + "s";
+        s.style.transform = "scaleY(" + to + ")";
+      });
+      if (done) setTimeout(done, coverMs + 60);
+    }
+
+    // arrival: if we came in under the blinds, retract them (origin bottom, 1 -> 0)
+    var arriving = false;
+    try { arriving = sessionStorage.getItem("msm_blinds") === "1"; sessionStorage.removeItem("msm_blinds"); } catch (e) {}
+    var unlock = function () { document.documentElement.classList.remove("blinds-arriving"); };
+    if (arriving && !reduce) {
+      blinds.classList.add("is-active");   // already covered pre-paint (html.blinds-arriving); retract it
+      cascade("bottom", 0, function () { blinds.classList.remove("is-active"); unlock(); });
+    } else {
+      unlock();   // stale flag / reduced-motion: make sure nothing stays covered
+    }
+
+    // leave: cover (origin top, 0 -> 1), then navigate
+    var busy = false;
+    document.addEventListener("click", function (e) {
+      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      var a = e.target.closest && e.target.closest("a[href][data-blinds]");
+      if (!a) return;
+      var href = a.getAttribute("href");
+      if (!href || href.charAt(0) === "#" || /^(https?:|mailto:|tel:)/i.test(href)) return;
+      e.preventDefault();
+      if (busy) return;
+      if (reduce) { window.location.href = href; return; }
+      busy = true;
+      blinds.classList.add("is-active");
+      cascade("top", 1);
+      try { sessionStorage.setItem("msm_blinds", "1"); } catch (err) {}
+      setTimeout(function () { window.location.href = href; }, coverMs);
+    });
+
+    // back/forward from bfcache restores the page frozen mid-cover — reset the slats
+    window.addEventListener("pageshow", function (e) {
+      if (!e.persisted) return;
+      blinds.classList.remove("is-active");
+      slats.forEach(function (s) { s.style.transition = "none"; s.style.transformOrigin = "top"; s.style.transform = "scaleY(0)"; });
+      busy = false;
+    });
+  })();
 
   /* ---- enable the hover "push" on the shop sign ONLY after its intro swing has
      settled, so hovering during the drop-in can't restart/glitch the entrance ---- */
@@ -400,44 +463,6 @@
     window.addEventListener("load", function () { measure(); frame(); });
     if (jackMedia.addEventListener) jackMedia.addEventListener("change", function () { measure(); frame(); });
   })();
-
-  /* ---- services ledger: the peek card chases the cursor ---- */
-  var ledger = $("[data-ledger]");
-  var peek = $(".svc-peek");
-  if (ledger && peek && fine && !reduce) {
-    var panes = $$(".svc-peek__pane", peek);
-    var px = 0, py = 0, tx = 0, ty = 0, peekRaf = null, peekOn = false;
-    var peekLoop = function () {
-      px += (tx - px) * 0.16;
-      py += (ty - py) * 0.16;
-      peek.style.transform = "translate(" + (px - 115).toFixed(1) + "px," + (py - 85).toFixed(1) + "px)";
-      var settled = Math.abs(tx - px) < 0.3 && Math.abs(ty - py) < 0.3;
-      if (peekOn || !settled) { peekRaf = requestAnimationFrame(peekLoop); } else { peekRaf = null; }
-    };
-    // note: .svc-peek uses transform for position; the show/hide scale lives on an inner wrapper-free
-    // opacity transition, so we drive left/top via translate only.
-    peek.style.willChange = "transform";
-    ledger.addEventListener("pointermove", function (e) {
-      tx = e.clientX + 40; ty = e.clientY;
-      if (!peekRaf) { px = tx; py = ty; peekRaf = requestAnimationFrame(peekLoop); }
-    });
-    $$(".svcrow", ledger).forEach(function (row) {
-      row.addEventListener("pointerenter", function (e) {
-        var i = parseInt(row.getAttribute("data-peek"), 10) || 0;
-        panes.forEach(function (p, j) { p.classList.toggle("on", j === i); });
-        // seed the position at the cursor so it doesn't flash in at the top-left
-        // when a row scrolls under a stationary pointer (enter without a prior move)
-        tx = e.clientX + 40; ty = e.clientY;
-        if (!peekRaf) { px = tx; py = ty; peekRaf = requestAnimationFrame(peekLoop); }
-        peekOn = true;
-        peek.classList.add("show");
-      });
-      row.addEventListener("pointerleave", function () {
-        peekOn = false;
-        peek.classList.remove("show");
-      });
-    });
-  }
 
   /* ---- stacking step cards: earlier cards sink + dim as the next arrives ---- */
   var stepsWrap = $("[data-steps]");

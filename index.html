@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Rozha+One&display=swap" rel="stylesheet" />
   <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/css/site.css?v=46" />
+  <link rel="stylesheet" href="assets/css/site.css?v=52" />
 </head>
 <body>
 
@@ -165,7 +165,7 @@
               </svg>
               <span class="emblem__center"><svg viewBox="0 0 48 48"><path d="M13 34 V17 L24 25 L35 17 V34" fill="none" stroke="#17181b" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/></svg></span>
             </span>
-            <a href="contact.html" class="btn btn--espresso btn--lg" data-magnetic>Get started <span class="arrow">→</span></a>
+            <a href="contact.html" class="btn btn--espresso btn--lg" data-magnetic data-blinds>Get started <span class="arrow">→</span></a>
           </div>
         </div>
       </section>
@@ -288,23 +288,6 @@
           </div>
         </div>
       </div>
-      <!-- the peek card that chases the cursor -->
-      <div class="svc-peek" aria-hidden="true">
-        <div class="svc-peek__inner">
-        <div class="svc-peek__pane" data-pane="0">
-          <svg viewBox="0 0 250 180"><rect width="250" height="180" fill="#faf5e9"/><path d="M40 130 V70 L70 50 L100 70 V130 Z" fill="none" stroke="#26272d" stroke-width="5" stroke-linejoin="round"/><rect x="58" y="100" width="24" height="30" fill="#f5ae35"/><circle cx="170" cy="60" r="16" fill="#f5ae35"/><circle cx="205" cy="75" r="12" fill="#8a2e1d"/><circle cx="185" cy="105" r="14" fill="#6aacc2"/><path d="M140 140 l60 -60 l14 14 l-60 60 l-18 4z" fill="#26272d"/></svg>
-        </div>
-        <div class="svc-peek__pane" data-pane="1">
-          <svg viewBox="0 0 250 180"><rect width="250" height="180" fill="#f5ae35"/><path d="M40 140 L100 90 L140 110 L210 45" fill="none" stroke="#26272d" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><path d="M178 42 h36 v36" fill="none" stroke="#26272d" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="100" cy="90" r="7" fill="#faf5e9"/><circle cx="140" cy="110" r="7" fill="#faf5e9"/></svg>
-        </div>
-        <div class="svc-peek__pane" data-pane="2">
-          <svg viewBox="0 0 250 180"><rect width="250" height="180" fill="#26272d"/><path d="M30 60 H220 M30 100 H220 M30 140 H220 M70 30 V150 M130 30 V150 M190 30 V150" stroke="#f4ecd9" stroke-width="2" opacity="0.25"/><path d="M125 130 C100 100 100 70 125 70 C150 70 150 100 125 130Z" fill="#f5ae35"/><circle cx="125" cy="88" r="9" fill="#26272d"/></svg>
-        </div>
-        <div class="svc-peek__pane" data-pane="3">
-          <svg viewBox="0 0 250 180"><rect width="250" height="180" fill="#f4ecd9"/><circle cx="125" cy="90" r="52" fill="none" stroke="#26272d" stroke-width="6"/><path d="M125 62 V90 L145 104" fill="none" stroke="#8a2e1d" stroke-width="6" stroke-linecap="round"/><path d="M60 40 l8 8 M190 40 l-8 8" stroke="#f5ae35" stroke-width="6" stroke-linecap="round"/><path d="M125 20 v10 M125 150 v10" stroke="#f5ae35" stroke-width="6" stroke-linecap="round"/></svg>
-        </div>
-        </div>
-      </div>
     </section>
 
     <!-- PROCESS: steps stack up like the site itself -->
@@ -390,6 +373,9 @@
     </div>
   </footer>
 
-  <script src="assets/js/site.js?v=46" defer></script>
+  <!-- BLINDS TRANSITION (rust) — test on the Why-Mainstreet "Get started" CTA -->
+  <div class="blinds" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+
+  <script src="assets/js/site.js?v=52" defer></script>
 </body>
 </html>

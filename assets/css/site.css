@@ -619,23 +619,6 @@ h3.display { font-size: clamp(1.6rem, 1.1rem + 2vw, 2.6rem); }
 .svcrow__body > div { overflow: hidden; }
 .svcrow__body p { color: var(--muted); max-width: 58ch; padding-top: 0.9rem; font-size: clamp(0.95rem, 0.9rem + 0.3vw, 1.1rem); }
 
-/* the peek — a little scene that chases the cursor over the ledger.
-   The outer element is positioned by JS (translate only); the inner
-   wrapper owns the pop-in scale/rotate so the two don't fight. */
-.svc-peek {
-  position: fixed; top: 0; left: 0; z-index: 900; pointer-events: none;
-  width: 230px; aspect-ratio: 5/3.6;
-}
-.svc-peek__inner {
-  position: absolute; inset: 0; border-radius: 18px; overflow: hidden;
-  box-shadow: var(--shadow-lg); opacity: 0; transform: scale(0.75) rotate(-3deg);
-  transition: opacity 0.35s var(--ease), transform 0.35s var(--ease);
-}
-.svc-peek.show .svc-peek__inner { opacity: 1; transform: scale(1) rotate(-3deg); }
-.svc-peek__pane { position: absolute; inset: 0; opacity: 0; transition: opacity 0.25s; }
-.svc-peek__pane.on { opacity: 1; }
-.svc-peek svg { width: 100%; height: 100%; }
-
 /* legacy service cards (still used on the contact page) */
 .svc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.4rem; }
 .svc { position: relative; border-radius: var(--radius-card); padding: 2rem 1.8rem 1.9rem; background: var(--parchment); color: var(--ink-text); overflow: hidden; transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease); border: 1px solid rgba(41,26,18,0.08); }
@@ -839,6 +822,31 @@ h3.display { font-size: clamp(1.6rem, 1.1rem + 2vw, 2.6rem); }
 @keyframes wipeMark { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes wipeMarkOut { to { opacity: 0; transform: translateY(-10px); } }
 
+/* ---------- 21b. BLINDS TRANSITION (marigold) ----------
+   A test transition wired only to the "Get started" CTA in the Why-Mainstreet
+   panel. Five marigold slats sweep down to cover the screen (scaleY 0->1 from the
+   top, staggered), the page navigates under cover, then they retract downward
+   (origin flipped to bottom, 1->0) on arrival. The cascade timing/transforms are
+   driven from JS per slat; this just holds the base look. Sits above the page-wipe
+   and cursor. Hidden entirely for reduced-motion (JS then just navigates). */
+.blinds {
+  position: fixed; inset: 0; z-index: 10050; pointer-events: none;
+  display: flex; flex-direction: column; visibility: hidden;
+}
+.blinds.is-active { visibility: visible; }
+.blinds span {
+  flex: 1 1 0; width: 100%;   /* evenly divide the height for any slat count */
+  background: var(--brick);
+  box-shadow: 0 0 0 1px var(--brick);   /* colour bleed seals sub-pixel seams so bars read as one */
+  transform: scaleY(0); transform-origin: top;
+  will-change: transform;
+}
+/* arriving under the blinds: cover from the very first paint so the destination page
+   (and its own intro animations) never flash through before site.js retracts them */
+html.blinds-arriving .blinds { visibility: visible; }
+html.blinds-arriving .blinds span { transform: scaleY(1); transform-origin: bottom; }
+@media (prefers-reduced-motion: reduce) { .blinds { display: none; } }
+
 /* ---------- 22. RESPONSIVE + REDUCED MOTION ---------- */
 @media (max-width: 980px) {
   .split { grid-template-columns: 1fr; }
@@ -855,7 +863,6 @@ h3.display { font-size: clamp(1.6rem, 1.1rem + 2vw, 2.6rem); }
   .stack__panel:first-child { border-radius: 0; }
   .stack__panel.stack__panel--brown { min-height: 0; padding-block: clamp(4rem, 3rem + 6vw, 6rem); }
   .hero-statement { min-height: 0; }
-  .svc-peek { display: none; }
   /* ledger rows: keep descriptions visible on touch screens */
   .svcrow { grid-template-columns: auto 1fr; }
   .svcrow__plus { display: none; }
@@ -886,6 +893,5 @@ h3.display { font-size: clamp(1.6rem, 1.1rem + 2vw, 2.6rem); }
   .page-wipe { display: none; }
   .step-card { transform: none !important; }
   .step-card::after { display: none; }
-  .svc-peek { display: none; }
   .svcrow__body { grid-template-rows: 1fr; }
 }
