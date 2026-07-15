@@ -891,7 +891,9 @@ html.blinds-arriving .blinds span { transform: scaleY(1); transform-origin: bott
   .rise .word > span { transform: none !important; }
   .reveal-lines .line > span { transform: none !important; }
   .hero-statement__cta { opacity: 1 !important; transform: none !important; }
-  .marquee__track { animation: none; }
+  /* a scrolling marquee frozen in place reads as broken — hide it entirely when
+     motion is reduced rather than leaving a static, cut-off bar */
+  .marquee { display: none; }
   .loader { display: none; }
   .sign-drop, .sign-swing, .logo-word .l, .logo-modern, .logo-tag, .hero-logo .scroll-cue { opacity: 1 !important; transform: none !important; animation: none !important; }
   .page-wipe { display: none; }
