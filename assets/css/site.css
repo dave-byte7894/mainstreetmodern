@@ -875,8 +875,12 @@ html.blinds-arriving .blinds span { transform: scaleY(1); transform-origin: bott
   .footer__top { grid-template-columns: 1fr 1fr; }
   .hero-logo__inner { flex-direction: column; gap: 2rem; }
   .hero-word { text-align: center; }
-  .logo-word { white-space: normal; }
+  /* size the wordmark to fit one line comfortably on phones (was overflowing/
+     wrapping the last letter); keep it unbreakable so "MAINSTREET" never splits */
+  .logo-word { font-size: clamp(2.4rem, 1rem + 7.5vw, 4.4rem); letter-spacing: 0; white-space: nowrap; }
   .logo-tag { justify-content: center; }
+  /* the scroll hint isn't needed on touch and read off-centre — drop it on mobile */
+  .hero-logo .scroll-cue { display: none; }
 }
 @media (max-width: 560px) { .field--row { grid-template-columns: 1fr; } }
 @media (max-width: 460px) { .footer__top { grid-template-columns: 1fr; } }
