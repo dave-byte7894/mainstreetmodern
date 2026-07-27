@@ -6,6 +6,7 @@ desktop.ini
 # Tooling / local config
 .claude/
 node_modules/
+state.json
 
 # Loose working & reference images in the project root (not used by the live site;
 # the site serves everything from assets/). Kept on disk, out of the repo.

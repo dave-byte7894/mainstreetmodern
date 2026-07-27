@@ -1,0 +1,48 @@
+name: Cold-outreach reply alerts
+
+# Runs on GitHub's servers on a schedule — no laptop, no external cron service.
+# Checks the outreach inboxes and pings Telegram when a real reply arrives.
+on:
+  schedule:
+    - cron: '*/30 * * * *'   # every 30 min (private-repo-safe). Public repo -> '*/5 * * * *'
+  workflow_dispatch: {}       # lets you run it manually from the Actions tab
+
+concurrency:
+  group: reply-check
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Restore dedup state
+        uses: actions/cache/restore@v4
+        with:
+          path: state.json
+          key: reply-state-${{ github.run_id }}
+          restore-keys: |
+            reply-state-
+
+      - name: Install IMAP libraries
+        run: npm install imapflow mailparser --no-save --no-audit --no-fund
+
+      - name: Check for replies
+        env:
+          REPLY_INBOXES: ${{ secrets.REPLY_INBOXES }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          IMAP_HOST: ${{ secrets.IMAP_HOST }}
+        run: node .github/scripts/check-replies.mjs
+
+      - name: Save dedup state
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: state.json
+          key: reply-state-${{ github.run_id }}
