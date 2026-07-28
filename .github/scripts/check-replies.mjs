@@ -8,8 +8,12 @@
 // ever read, never modified.
 
 import fs from 'node:fs';
-import { ImapFlow } from 'imapflow';
-import { simpleParser } from 'mailparser';
+// imapflow + mailparser are CommonJS; default-import then destructure so the
+// named exports resolve reliably under ESM (named imports can fail at load).
+import imapflowPkg from 'imapflow';
+import mailparserPkg from 'mailparser';
+const { ImapFlow } = imapflowPkg;
+const { simpleParser } = mailparserPkg;
 
 const IMAP_HOST = process.env.IMAP_HOST || 'imap.gmail.com';
 const IMAP_PORT = parseInt(process.env.IMAP_PORT || '993', 10);
