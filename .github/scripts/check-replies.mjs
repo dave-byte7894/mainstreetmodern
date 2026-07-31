@@ -39,6 +39,23 @@ function headerVal(buf, name) {
     return m ? m[1].trim() : '';
 }
 
+// Delivery-failure bounces and out-of-office auto-replies quote our original
+// message-id, so they'd otherwise match as a "reply" and clog the alert feed.
+const BOUNCE_FROM = /(mailer-daemon|postmaster|no-?reply|do-?not-?reply|bounce)/i;
+const BOUNCE_SUBJ = /(delivery status notification|undeliverable|undelivered mail|mail delivery (failed|subsystem)|returned to sender|failure notice|delivery has failed|address (couldn't|could not) be found|automatic reply|auto[- ]?reply|out of office)/i;
+
+function isAutoOrBounce(env, headers) {
+    const from = (env.from && env.from[0] && env.from[0].address) || '';
+    if (BOUNCE_FROM.test(from)) return true;
+    const auto = headerVal(headers, 'auto-submitted').toLowerCase();
+    if (auto && auto !== 'no') return true;
+    const ctype = headerVal(headers, 'content-type').toLowerCase();
+    if (ctype.includes('multipart/report') || ctype.includes('delivery-status')) return true;
+    if (headerVal(headers, 'x-failed-recipients')) return true;
+    if (['bulk', 'auto_reply', 'junk'].includes(headerVal(headers, 'precedence').toLowerCase())) return true;
+    return BOUNCE_SUBJ.test(env.subject || '');
+}
+
 function loadState() {
     try { return JSON.parse(fs.readFileSync(STATE_FILE, 'utf8')); }
     catch { return { accounts: {}, alerted: [] }; }
@@ -112,12 +129,14 @@ async function checkAccount(acct, state) {
             const matched = [];
             let maxUid = acctState.lastUid;
             for await (const m of client.fetch(uids,
-                { uid: true, envelope: true, headers: ['in-reply-to', 'references'] }, { uid: true })) {
+                { uid: true, envelope: true, headers: ['in-reply-to', 'references',
+                    'auto-submitted', 'content-type', 'x-failed-recipients', 'precedence'] }, { uid: true })) {
                 if (m.uid <= acctState.lastUid) continue;
                 if (m.uid > maxUid) maxUid = m.uid;
                 const env = m.envelope || {};
                 const from = (env.from && env.from[0] && env.from[0].address || '').toLowerCase();
                 if (!from || ours.has(from)) continue;      // skip our own sends / warmup-from-us
+                if (isAutoOrBounce(env, m.headers)) continue; // skip bounces / auto-replies
                 const refBlob = [env.inReplyTo || '', headerVal(m.headers, 'in-reply-to'),
                     headerVal(m.headers, 'references')].join(' ');
                 const refIds = refBlob.match(/<[^>]+>/g) || [];
