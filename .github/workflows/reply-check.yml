@@ -7,14 +7,15 @@ on:
     - cron: '*/30 * * * *'   # every 30 min (private-repo-safe). Public repo -> '*/5 * * * *'
   workflow_dispatch: {}       # lets you run it manually from the Actions tab
 
-concurrency:
-  group: reply-check
-  cancel-in-progress: false
+# No concurrency group: GitHub's scheduler sometimes bunches up delayed runs,
+# and a concurrency guard cancels the superseded ones -> confusing "cancelled"
+# failure emails. Overlaps are rare (30-min schedule, sub-minute runtime) and
+# the cache-based dedup makes a stray double-run harmless.
 
 jobs:
   check:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 10
     steps:
       - name: Check out repo
         uses: actions/checkout@v4
